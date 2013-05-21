@@ -1,5 +1,7 @@
 #include <stdlib.h>
 
+#ifdef x86
+
 void inline _sc1(const uint8_t nr,uint32_t p1) {
 	asm (
 		"movl %0,%%eax\n"
@@ -22,3 +24,4 @@ void inline _sc3(const uint8_t nr,uint32_t p1,uint32_t p2,uint32_t p3) {
 	);
 }
 
+#endif // x86

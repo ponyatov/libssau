@@ -1,21 +1,21 @@
-default: libc.a test
+default: test
+check: test
+	./test
 
-MODULES = crt0.o crt1.o crti.o crtn.o syscall.o exit.o write.o  
+clean:
+	rm -rf *.o *.a test
 
+MODULES = crt0.o crt1.o crti.o crtn.o syscall.o exit.o write.o
+
+libc.a: $(MODULES)
+	ar rcs $@ $(MODULES)
+	
 HFILES = stdlib.h
 
-CFLAGS = \
-	-fno-asynchronous-unwind-tables \
-	-O0 \
-	-L. \
-	$(INCLUDE)
-# -nostdlib 	
+CFLAGS = -fno-asynchronous-unwind-tables -O0 -L. $(INCLUDE) -D$(ARCH)
 
 %.o: %.c $(HFILES) Makefile
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-test: test.c libssau.a $(HFILES)
-	$(CC) $(CFLAGS) -o $@ $< && ./$@
-	
-libc.a: $(MODULES) $(HFILES) Makefile 
-	ar rcs $@ $(MODULES)
+test: test.c libc.a
+	$(CC) $(CFLAGS) -o $@ $<
