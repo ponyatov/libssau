@@ -12,7 +12,7 @@ libc.a: $(MODULES)
 	
 HFILES = stdlib.h
 
-CFLAGS = -fno-asynchronous-unwind-tables -O0 -L. $(INCLUDE) -D$(ARCH)
+CFLAGS = -fno-asynchronous-unwind-tables -O2 -L. $(INCLUDE) -D$(ARCH)
 
 %.o: %.c $(HFILES) Makefile
 	$(CC) $(CFLAGS) -c -o $@ $<

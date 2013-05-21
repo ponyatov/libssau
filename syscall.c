@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#ifdef x86
+#ifdef i386
 
 void inline _sc1(const uint8_t nr,uint32_t p1) {
 	asm (
